@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Hamburger Menu</title>
+<title>Rotating Hamburger Menu</title>
 <style>
   /* Hamburger icon */
   .hamburger {
     position: fixed;
     top: 15px;
-    right: 15px;
+    left: 15px; /* Changed from right to left */
     width: 30px;
     height: 22px;
     cursor: pointer;
@@ -17,6 +17,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    /* Add infinite rotation animation */
+    animation: rotate360 1s linear infinite;
   }
   .hamburger div {
     height: 4px;
@@ -24,7 +26,7 @@
     border-radius: 2px;
     transition: 0.3s;
   }
-  /* Animate bars when active */
+  /* Animate bars when active (menu open) */
   .hamburger.active div:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
   }
@@ -65,12 +67,22 @@
   .menu a:hover {
     background-color: #444;
   }
+
+  /* Keyframes for rotation */
+  @keyframes rotate360 {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 </style>
 </head>
 <body>
 
 <!-- Hamburger icon -->
-<div class="hamburger" id="hamburger">
+<div class="hamburger" id="hamburger" aria-label="Toggle Menu" role="button" tabindex="0">
   <div></div>
   <div></div>
   <div></div>
@@ -93,6 +105,14 @@
   hamburger.addEventListener("click", () => {
     hamburger.classList.toggle("active");
     menu.classList.toggle("active");
+  });
+
+  // Also allow keyboard Enter/Space to toggle menu
+  hamburger.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      hamburger.click();
+    }
   });
 
   // Close menu when a link is clicked
