@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Fantastic Hamburger Menu</title>
+<title>Blue Fantastic Hamburger Menu</title>
 <style>
-  /* Reset some defaults */
   body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -26,14 +25,14 @@
     align-items: center;
     justify-content: center;
     border-radius: 12px;
-    background: linear-gradient(135deg, #ff416c, #ff4b2b);
-    box-shadow: 0 4px 15px rgba(255, 75, 43, 0.6);
+    background: linear-gradient(135deg, #1e90ff, #00bfff);
+    box-shadow: 0 4px 15px rgba(30, 144, 255, 0.6);
     user-select: none;
     animation: rotate360 1.2s linear infinite;
     transition: background 0.3s ease;
   }
   .hamburger-wrapper:hover {
-    background: linear-gradient(135deg, #ff6580, #ff643a);
+    background: linear-gradient(135deg, #3399ff, #3399ffcc);
   }
 
   /* Hamburger bars */
@@ -55,17 +54,19 @@
   /* Transform to X when active */
   .hamburger-wrapper.active {
     animation: none; /* stop rotation when menu open */
-    background: linear-gradient(135deg, #12c2e9, #c471ed, #f64f59);
-    box-shadow: 0 6px 20px rgba(198, 113, 237, 0.8);
+    background: linear-gradient(135deg, #0099ff, #0066ff, #0033cc);
+    box-shadow: 0 6px 20px rgba(0, 102, 204, 0.8);
   }
   .hamburger-wrapper.active div:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+    transform: rotate(45deg);
+    transform-origin: center;
   }
   .hamburger-wrapper.active div:nth-child(2) {
     opacity: 0;
   }
   .hamburger-wrapper.active div:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
+    transform: rotate(-45deg);
+    transform-origin: center;
   }
 
   /* Menu styles */
@@ -75,8 +76,8 @@
     right: 0;
     height: 100vh;
     width: 220px;
-    background: linear-gradient(180deg, #ff4b2b, #ff416c);
-    box-shadow: -6px 0 20px rgba(255, 75, 43, 0.8);
+    background: linear-gradient(180deg, #0066ff, #0033cc);
+    box-shadow: -6px 0 20px rgba(0, 102, 204, 0.8);
     color: white;
     padding-top: 80px;
     transform: translateX(100%);
@@ -105,11 +106,19 @@
     background: rgba(255, 255, 255, 0.15);
     box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3);
   }
+
+  @keyframes rotate360 {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 </style>
 </head>
 <body>
 
-<!-- Hamburger icon wrapper -->
 <div class="hamburger-wrapper" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
   <div class="hamburger">
     <div></div>
@@ -118,13 +127,12 @@
   </div>
 </div>
 
-<!-- Menu -->
 <nav class="menu" id="menu" role="navigation" aria-label="Main menu">
-  <a href="/home" class="menu-link">Home</a>
-  <a href="/key" class="menu-link">Key</a>
-  <a href="/staff" class="menu-link">Staff</a>
-  <a href="/credits" class="menu-link">Credits</a>
-  <a href="/script" class="menu-link">Script</a>
+  <a href="home.html" class="menu-link">Home</a>
+  <a href="key.html" class="menu-link">Key</a>
+  <a href="staff.html" class="menu-link">Staff</a>
+  <a href="credits.html" class="menu-link">Credits</a>
+  <a href="script.html" class="menu-link">Script</a>
 </nav>
 
 <script>
