@@ -133,8 +133,65 @@
     padding-left: 20px;
   }
 
-  /* Key page specific */
-  #keyPage input[type="text"] {
+  /* Key page styling */
+  #keyPage h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  .link-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .link-box {
+    background: #003a8c;
+    border-radius: 20px;
+    width: 180px;
+    height: 220px;
+    box-shadow: 0 4px 20px rgba(0, 102, 204, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 15px;
+    transition: background 0.3s ease;
+    user-select: none;
+  }
+  .link-box:hover {
+    background: #0050e0;
+    cursor: pointer;
+  }
+  .link-icon {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 4px #00bfff);
+  }
+  .link-button {
+    margin-top: auto;
+    background: #00bfff;
+    border: none;
+    padding: 14px 25px;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    color: #003a8c;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+    width: 100%;
+  }
+  .link-button:hover {
+    background: #0099ff;
+    color: white;
+  }
+
+  /* Username input and key output */
+  #usernameSection {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  #usernameSection input[type="text"] {
     width: 100%;
     font-size: 1.1rem;
     padding: 12px 15px;
@@ -142,7 +199,7 @@
     border: none;
     outline: none;
   }
-  #keyPage input[type="text"]:focus {
+  #usernameSection input[type="text"]:focus {
     box-shadow: 0 0 8px #00bfff;
   }
   #keyOutput {
@@ -150,22 +207,29 @@
     font-size: 1.3rem;
     font-weight: bold;
     color: #00bfff;
+    text-align: center;
   }
 
   /* Script page */
-  #scriptPage textarea {
-    width: 100%;
-    height: 280px;
-    font-family: monospace;
-    font-size: 1rem;
-    background: #222;
-    border: none;
-    color: #00bfff;
-    border-radius: 8px;
-    padding: 15px;
-    resize: none;
+  #scriptPage {
+    max-width: 900px;
   }
-  #scriptPage button {
+  #scriptPage .code-container {
+    position: relative;
+    background: #111;
+    border-radius: 12px;
+    padding: 15px 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1rem;
+    color: white;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    user-select: text;
+    min-height: 280px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  #copyBtn {
     margin-top: 20px;
     background: #1e90ff;
     border: none;
@@ -177,26 +241,17 @@
     cursor: pointer;
     transition: background 0.3s ease;
   }
-  #scriptPage button:hover {
+  #copyBtn:hover {
     background: #0099ff;
   }
 
-  /* Copy icon styling */
-  .copy-icon {
-    cursor: pointer;
-    margin-left: 8px;
-    vertical-align: middle;
-    fill: #00bfff;
-    transition: fill 0.3s ease;
-  }
-  .copy-icon:hover {
-    fill: #0099ff;
-  }
-  .copy-wrapper {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
+  /* Lua syntax highlighting colors */
+  .keyword { color: #569CD6; font-weight: 700; }
+  .string { color: #CE9178; }
+  .comment { color: #6A9955; font-style: italic; }
+  .number { color: #B5CEA8; }
+  .identifier { color: #9CDCFE; }
+  .operator { color: #D4D4D4; }
 
 </style>
 </head>
@@ -230,9 +285,30 @@
 
 <!-- Key -->
 <main id="keyPage" tabindex="0">
-  <h1>Enter Your Roblox Username</h1>
-  <input type="text" id="username" placeholder="Roblox Username" aria-label="Roblox Username input" />
-  <div id="keyOutput" role="status" aria-live="polite"></div>
+  <h1>Choose Link:</h1>
+  <div class="link-container" aria-label="Choose a link service">
+    <div class="link-box" tabindex="0" role="button" aria-pressed="false" id="workinkBox">
+      <!-- Work.ink SVG icon -->
+      <svg class="link-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <circle cx="50" cy="50" r="48" stroke="#00bfff" stroke-width="4"/>
+        <path d="M30 60 L50 30 L70 60 Z" fill="#00bfff" />
+      </svg>
+      <button class="link-button" id="workinkBtn" type="button" aria-label="Go to Work.ink link">Go To</button>
+    </div>
+    <div class="link-box" tabindex="0" role="button" aria-pressed="false" id="linkvertiseBox">
+      <!-- Linkvertise SVG icon -->
+      <svg class="link-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <circle cx="32" cy="32" r="30" stroke="#00bfff" stroke-width="4"/>
+        <path d="M20 44 L32 20 L44 44 Z" fill="#00bfff" />
+      </svg>
+      <button class="link-button" id="linkvertiseBtn" type="button" aria-label="Go to Linkvertise link">Go To</button>
+    </div>
+  </div>
+  <div id="usernameSection">
+    <label for="username" style="font-size:1.3rem; font-weight:600; display:block; margin-bottom:8px;">Enter Your Roblox Username:</label>
+    <input type="text" id="username" placeholder="Roblox Username" aria-label="Roblox Username input" autocomplete="off" />
+    <div id="keyOutput" role="status" aria-live="polite"></div>
+  </div>
 </main>
 
 <!-- Staff -->
@@ -255,10 +331,7 @@
 <!-- Script -->
 <main id="scriptPage" tabindex="0">
   <h1>Copy Script</h1>
-  <textarea id="scriptBox" readonly aria-label="Roblox key system script">
--- Your Roblox key system script here
-print("This is your Ninja Key System script!")
-  </textarea>
+  <div id="codeContainer" class="code-container" role="textbox" aria-label="Lua script with syntax highlighting" tabindex="0" spellcheck="false" contenteditable="true" aria-multiline="true"></div>
   <button id="copyBtn" aria-label="Copy script to clipboard">Copy Script</button>
 </main>
 
@@ -304,7 +377,28 @@ print("This is your Ninja Key System script!")
     });
   });
 
-  // Key generation simulation
+  // Links for key page
+  const workinkBtn = document.getElementById("workinkBtn");
+  const linkvertiseBtn = document.getElementById("linkvertiseBtn");
+  const workinkBox = document.getElementById("workinkBox");
+  const linkvertiseBox = document.getElementById("linkvertiseBox");
+
+  // Replace these URLs with your actual Linkvertise and Work.ink URLs
+  const workinkURL = "https://work.ink";
+  const linkvertiseURL = "https://linkvertise.com";
+
+  function openLink(url) {
+    window.open(url, "_blank", "noopener");
+  }
+
+  workinkBtn.addEventListener("click", () => openLink(workinkURL));
+  linkvertiseBtn.addEventListener("click", () => openLink(linkvertiseURL));
+
+  // Make entire boxes clickable and accessible
+  workinkBox.addEventListener("click", () => openLink(workinkURL));
+  linkvertiseBox.addEventListener("click", () => openLink(linkvertiseURL));
+
+  // Key generation after link completion
   const usernameInput = document.getElementById("username");
   const keyOutput = document.getElementById("keyOutput");
 
@@ -315,8 +409,8 @@ print("This is your Ninja Key System script!")
         alert("Please enter your Roblox username.");
         return;
       }
-
-      // Simulate Linkvertise / Work.ink completion
+      // Here you would check if user completed the links
+      // For demo, we just ask for confirmation
       if (confirm("Please complete the required Linkvertise and Work.ink steps outside this demo.\n\nClick OK once done to receive your key.")) {
         const randomPart = Math.random().toString(36).substring(2, 8).toUpperCase();
         const key = `NINJA_${randomPart}`;
@@ -325,29 +419,43 @@ print("This is your Ninja Key System script!")
     }
   });
 
-  // Copy script button
+  // Simple Lua syntax highlighter for the script page
+  const codeContainer = document.getElementById("codeContainer");
   const copyBtn = document.getElementById("copyBtn");
-  const scriptBox = document.getElementById("scriptBox");
 
-  copyBtn.addEventListener("click", () => {
-    scriptBox.select();
-    scriptBox.setSelectionRange(0, 99999); // For mobile
+  // Sample Lua script to display
+  const luaScript = `-- Your Roblox key system script here
+print("This is your Ninja Key System script!")
 
-    try {
-      const successful = document.execCommand('copy');
-      if (successful) {
-        copyBtn.textContent = "Copied!";
-        setTimeout(() => {
-          copyBtn.textContent = "Copy Script";
-        }, 2000);
-      } else {
-        alert("Copy failed. Please copy manually.");
-      }
-    } catch (err) {
-      alert("Copy command is not supported in your browser.");
-    }
-  });
-</script>
+local function generateKey()
+  local charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+  local key = "NINJA_"
+  for i = 1, 6 do
+    local rand = math.random(1, #charset)
+    key = key .. charset:sub(rand, rand)
+  end
+  return key
+end`;
 
-</body>
-</html>
+  // Lua keywords for highlighting
+  const luaKeywords = [
+    "and","break","do","else","elseif","end","false","for","function","goto",
+    "if","in","local","nil","not","or","repeat","return","then","true","until","while"
+  ];
+
+  // Escape HTML special chars
+  function escapeHtml(text) {
+    return text.replace(/&/g, "&amp;")
+               .replace(/</g, "&lt;")
+               .replace(/>/g, "&gt;");
+  }
+
+  // Basic syntax highlight function
+  function luaHighlight(code) {
+    let escaped = escapeHtml(code);
+
+    // Comments -- from -- to end of line
+    escaped = escaped.replace(/(--.*)/g, '<span class="comment">$1</span>');
+
+    // Strings " or '
+    escaped = escaped
