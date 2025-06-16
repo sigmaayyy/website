@@ -257,20 +257,14 @@
   // --- Navigation & page content rendering ---
   const pageContent = document.getElementById('pageContent');
 
-  const luaScriptText = `-- Example Lua Script
-local function greet(name)
-  print("Hello, " .. name .. "!")
-end
-
-greet("Ninja")
-`;
+  const luaScriptText = `loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/slap-battles-badge-autofarm.lua"))();
 
   function renderPage(path) {
     switch(path) {
       case '/home':
         pageContent.innerHTML = `
-          <h1>Welcome to Website Weld Ninja</h1>
-          <p>This is the default homepage of the site.</p>
+          <h1>Welcome to Syntax</h1>
+          <p>We used to be Ninja Scripts, now we're called Syntax.</p>
         `;
         break;
 
@@ -279,12 +273,12 @@ greet("Ninja")
           <h1>Choose Link:</h1>
           <div class="link-choice-container">
             <div class="link-choice">
-              <img src="https://cdn-icons-png.flaticon.com/512/5968/5968943.png" alt="work.ink icon" />
-              <button onclick="window.open('https://work.ink', '_blank')">Go To</button>
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkE9RHoNVMBXZo8J1BaUD3pjIgL21hDFDV3w&s" alt="work.ink icon" />
+              <button onclick="window.open('https://workink.net/1ZPB/ninjakey', '_blank')">Choose Keysystem</button>
             </div>
             <div class="link-choice">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Linkvertise_logo.svg/1200px-Linkvertise_logo.svg.png" alt="linkvertise icon" />
-              <button onclick="window.open('https://linkvertise.com', '_blank')">Go To</button>
+              <img src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/ddndl7hytkgdiy9u3uiz" alt="linkvertise icon" />
+              <button onclick="window.open('https://link-center.net/1354045/key-system', '_blank')">Choose Keysystem</button>
             </div>
           </div>
         `;
@@ -293,20 +287,27 @@ greet("Ninja")
       case '/staff':
         pageContent.innerHTML = `
           <h1>Our Staff</h1>
-          <p>Meet the awesome team behind this project. Each staff member was recruited for their dedication, skills, and passion.</p>
+          <p>-redefined- The guy who helped me develop the Ninja Scripts server.</p>
+          <p>-Domi- He's active and invited people to the server. He's a good guy.</p>
+          <p>-Xbamz- My long lost friend.</p>
+          <p>-grace- Spotted a bug and is a tester for the script.</p>
+          <p>-[PREMIUM] 0- He's a developer even though he never helped me with anything!.</p>
+          <p>-BX- Also a developer but never helped me with anything.</p>
         `;
         break;
 
       case '/credits':
         pageContent.innerHTML = `
           <h1>Credits</h1>
-          <p>Website Weld Ninja was created by Victor.</p>
+          <p>Was made by Hunter [Ninja Scripts Owner]</p>
+          <button onclick="window.open('https://discord.gg/PfbeUhppbc', '_blank')">Join Discord</button>
         `;
         break;
 
       case '/script':
         pageContent.innerHTML = `
           <h1>Copy Script</h1>
+          <p>Version: 1.0.0</p>
           <pre><code class="language-lua">${luaScriptText}</code></pre>
           <button id="copyBtn" aria-label="Copy script">📋 Copy Script</button>
           <button id="getKeyBtn">Get Key</button>
