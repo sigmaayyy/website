@@ -166,6 +166,8 @@
       overflow-x: auto;
       font-size: 15px;
       line-height: 1.5;
+      white-space: pre-wrap;
+      word-wrap: break-word;
     }
 
     #copyBtn {
@@ -197,6 +199,7 @@
       color: white;
       transition: background 0.3s ease;
       user-select: none;
+      margin-left: 10px;
     }
     #getKeyBtn:hover {
       background: #80bfff;
@@ -206,6 +209,26 @@
     p {
       line-height: 1.6;
       font-size: 18px;
+      margin: 6px 0;
+    }
+
+    /* Credits page join discord button */
+    #discordBtn {
+      margin-top: 12px;
+      background: #7289da;
+      border: none;
+      padding: 12px 25px;
+      font-weight: 700;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+      transition: background 0.3s ease;
+      user-select: none;
+      display: inline-block;
+    }
+    #discordBtn:hover {
+      background: #99aab5;
     }
   </style>
 </head>
@@ -257,7 +280,8 @@
   // --- Navigation & page content rendering ---
   const pageContent = document.getElementById('pageContent');
 
-  const luaScriptText = `loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/slap-battles-badge-autofarm.lua"))();
+  // Script code you provided
+  const luaScriptText = `loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/slap-battles-badge-autofarm.lua"))()`;
 
   function renderPage(path) {
     switch(path) {
@@ -300,14 +324,23 @@
         pageContent.innerHTML = `
           <h1>Credits</h1>
           <p>Was made by Hunter [Ninja Scripts Owner]</p>
-          <button onclick="window.open('https://discord.gg/PfbeUhppbc', '_blank')">Join Discord</button>
+          <button id="discordBtn" aria-label="Join Discord server">Join Discord</button>
         `;
+
+        // Add button click handler after DOM injection
+        setTimeout(() => {
+          const discordBtn = document.getElementById('discordBtn');
+          if (discordBtn) {
+            discordBtn.addEventListener('click', () => {
+              window.open('https://discord.gg/PfbeUhppbc', '_blank');
+            });
+          }
+        }, 0);
         break;
 
       case '/script':
         pageContent.innerHTML = `
           <h1>Copy Script</h1>
-          <p>Version: 1.0.0</p>
           <pre><code class="language-lua">${luaScriptText}</code></pre>
           <button id="copyBtn" aria-label="Copy script">📋 Copy Script</button>
           <button id="getKeyBtn">Get Key</button>
