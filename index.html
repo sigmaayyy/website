@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hamburger Menu</title>
+<style>
+  /* Hamburger icon */
+  .hamburger {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 22px;
+    cursor: pointer;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .hamburger div {
+    height: 4px;
+    background-color: #333;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+  /* Animate bars when active */
+  .hamburger.active div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .hamburger.active div:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active div:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  /* Menu styling */
+  .menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 200px;
+    background-color: #222;
+    color: white;
+    padding-top: 60px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 18px;
+  }
+  .menu.active {
+    transform: translateX(0);
+  }
+  .menu a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    user-select: none;
+  }
+  .menu a:hover {
+    background-color: #444;
+  }
+</style>
+</head>
+<body>
+
+<!-- Hamburger icon -->
+<div class="hamburger" id="hamburger">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<!-- Menu -->
+<nav class="menu" id="menu">
+  <a href="/home.html" class="menu-link">Home</a>
+  <a href="/key.html" class="menu-link">Key</a>
+  <a href="/staff.html" class="menu-link">Staff</a>
+  <a href="/credits.html" class="menu-link">Credits</a>
+  <a href="/script.html" class="menu-link">Script</a>
+</nav>
+
+<script>
+  const hamburger = document.getElementById("hamburger");
+  const menu = document.getElementById("menu");
+  const links = document.querySelectorAll(".menu-link");
+
+  hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("active");
+    menu.classList.toggle("active");
+  });
+
+  // Close menu when a link is clicked
+  links.forEach(link => {
+    link.addEventListener("click", () => {
+      hamburger.classList.remove("active");
+      menu.classList.remove("active");
+    });
+  });
+</script>
+
+</body>
+</html>
