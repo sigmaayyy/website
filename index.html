@@ -3,459 +3,313 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Ninja Key System</title>
+<title>Website Weld Ninja</title>
+
+<!-- PrismJS CSS for Lua syntax highlighting -->
+<link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.css" rel="stylesheet" />
+
 <style>
-  /* Global Styles */
-  body {
-    margin: 0;
+  /* Reset and basics */
+  body, html {
+    margin: 0; padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #121212;
+    background: #111;
     color: #eee;
   }
 
-  /* Hamburger Menu Styles */
-  .hamburger-wrapper {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    z-index: 1002;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #1e90ff, #00bfff);
-    box-shadow: 0 4px 15px rgba(30, 144, 255, 0.6);
-    user-select: none;
-    animation: rotate360 1.2s linear infinite;
-    transition: background 0.3s ease;
-  }
-  .hamburger-wrapper:hover {
-    background: linear-gradient(135deg, #3399ff, #3399ffcc);
-  }
-  .hamburger {
-    position: relative;
-    width: 28px;
-    height: 22px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .hamburger div {
-    height: 3.5px;
-    background: white;
-    border-radius: 3px;
-    transition: all 0.4s ease;
-  }
-  .hamburger-wrapper.active {
-    animation: none;
-    background: linear-gradient(135deg, #0099ff, #0066ff, #0033cc);
-    box-shadow: 0 6px 20px rgba(0, 102, 204, 0.8);
-  }
-  .hamburger-wrapper.active div:nth-child(1) {
-    transform: rotate(45deg);
-    transform-origin: center;
-  }
-  .hamburger-wrapper.active div:nth-child(2) {
-    opacity: 0;
-  }
-  .hamburger-wrapper.active div:nth-child(3) {
-    transform: rotate(-45deg);
-    transform-origin: center;
-  }
-
-  /* Side Menu */
-  .menu {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: 220px;
-    background: linear-gradient(180deg, #0066ff, #0033cc);
-    box-shadow: -6px 0 20px rgba(0, 102, 204, 0.8);
-    color: white;
-    padding-top: 80px;
-    transform: translateX(100%);
-    transition: transform 0.35s ease, opacity 0.3s ease;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    font-size: 20px;
-    opacity: 0;
-  }
-  .menu.active {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  .menu a {
-    color: white;
+  a {
+    color: #4da6ff;
     text-decoration: none;
-    padding: 12px 25px;
-    font-weight: 600;
-    border-radius: 8px;
-    transition: background 0.25s ease;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* Hamburger container */
+  #hamburger-container {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+  }
+
+  /* Hamburger button */
+  #hamburgerBtn {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    font-size: 32px;
+    color: #4da6ff; /* blue color */
+    transform-origin: center center;
+    transition: transform 0.5s ease;
     user-select: none;
   }
-  .menu a:hover, .menu a.active {
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3);
-  }
 
-  @keyframes rotate360 {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  /* Main content styling */
-  main {
-    padding: 100px 25px 25px 25px;
-    max-width: 900px;
-    margin: 0 auto;
-    display: none; /* Hide all sections by default */
-  }
-  main.active {
-    display: block;
-  }
-  h1 {
-    font-size: 2.8rem;
-    margin-bottom: 15px;
-  }
-  p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-  }
-  ul {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    padding-left: 20px;
-  }
-
-  /* Key page styling */
-  #keyPage h2 {
-    font-size: 2rem;
-    margin-bottom: 30px;
-  }
-  .link-container {
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 40px;
-  }
-  .link-box {
-    background: #003a8c;
-    border-radius: 20px;
+  /* Hamburger menu panel */
+  #hamburgerMenu {
+    position: fixed;
+    top: 50px;
+    left: 10px;
     width: 180px;
-    height: 220px;
-    box-shadow: 0 4px 20px rgba(0, 102, 204, 0.7);
+    background: #004080;
+    border-radius: 8px;
+    box-shadow: 0 0 12px #004080cc;
+    padding: 15px 20px;
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  #hamburgerMenu a {
+    display: block;
+    padding: 8px 12px;
+    background: #0066cc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  #hamburgerMenu a:hover {
+    background: #3399ff;
+  }
+
+  /* Page container */
+  #pageContent {
+    max-width: 700px;
+    margin: 80px auto 40px auto;
+    padding: 0 20px;
+  }
+
+  /* Key page styles */
+  .link-choice-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .link-choice {
+    background: #004080;
+    border-radius: 10px;
+    width: 250px;
+    height: 150px;
+    color: white;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 20px 15px;
-    transition: background 0.3s ease;
-    user-select: none;
+    box-shadow: 0 0 15px #3399ff88;
   }
-  .link-box:hover {
-    background: #0050e0;
-    cursor: pointer;
+  .link-choice img {
+    width: 80px;
+    margin-bottom: 12px;
   }
-  .link-icon {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 20px;
-    filter: drop-shadow(0 0 4px #00bfff);
-  }
-  .link-button {
-    margin-top: auto;
-    background: #00bfff;
+  .link-choice button {
+    background: #3399ff;
     border: none;
-    padding: 14px 25px;
-    font-size: 1.1rem;
-    border-radius: 12px;
-    color: #003a8c;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.3s ease, color 0.3s ease;
-    width: 100%;
-  }
-  .link-button:hover {
-    background: #0099ff;
     color: white;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
   }
-
-  /* Username input and key output */
-  #usernameSection {
-    max-width: 480px;
-    margin: 0 auto;
-  }
-  #usernameSection input[type="text"] {
-    width: 100%;
-    font-size: 1.1rem;
-    padding: 12px 15px;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-  }
-  #usernameSection input[type="text"]:focus {
-    box-shadow: 0 0 8px #00bfff;
-  }
-  #keyOutput {
-    margin-top: 25px;
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #00bfff;
-    text-align: center;
+  .link-choice button:hover {
+    background: #66b3ff;
   }
 
   /* Script page */
-  #scriptPage {
-    max-width: 900px;
-  }
-  #scriptPage .code-container {
-    position: relative;
-    background: #111;
-    border-radius: 12px;
-    padding: 15px 20px;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 1.1rem;
-    color: white;
-    line-height: 1.4;
-    white-space: pre-wrap;
-    user-select: text;
-    min-height: 280px;
-    max-height: 400px;
-    overflow-y: auto;
-  }
-  #copyBtn {
-    margin-top: 20px;
-    background: #1e90ff;
-    border: none;
-    padding: 14px 28px;
-    font-size: 1.2rem;
+  #scriptTextarea {
+    width: 100%;
+    height: 300px;
+    margin-top: 10px;
+    padding: 15px;
+    background: #222;
+    color: #eee;
+    font-family: monospace;
+    font-size: 14px;
     border-radius: 8px;
-    color: white;
-    font-weight: 600;
+    border: none;
+    resize: none;
+  }
+  #copyIcon {
     cursor: pointer;
+    font-size: 24px;
+    color: #4da6ff;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+  #getKeyBtn {
+    margin-top: 20px;
+    background: #4da6ff;
+    border: none;
+    padding: 12px 20px;
+    font-weight: 700;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
     transition: background 0.3s ease;
   }
-  #copyBtn:hover {
-    background: #0099ff;
+  #getKeyBtn:hover {
+    background: #80bfff;
   }
 
-  /* Lua syntax highlighting colors */
-  .keyword { color: #569CD6; font-weight: 700; }
-  .string { color: #CE9178; }
-  .comment { color: #6A9955; font-style: italic; }
-  .number { color: #B5CEA8; }
-  .identifier { color: #9CDCFE; }
-  .operator { color: #D4D4D4; }
-
+  /* Staff and credits page */
+  p {
+    line-height: 1.5;
+  }
 </style>
 </head>
 <body>
 
-<!-- Hamburger Button -->
-<div class="hamburger-wrapper" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
-  <div class="hamburger">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
+<!-- Hamburger menu container -->
+<div id="hamburger-container">
+  <button id="hamburgerBtn" aria-label="Toggle menu">☰</button>
+  <nav id="hamburgerMenu" aria-label="Main navigation">
+    <a href="/home" class="nav-link">Home</a>
+    <a href="/key" class="nav-link">Key</a>
+    <a href="/staff" class="nav-link">Staff</a>
+    <a href="/credits" class="nav-link">Credits</a>
+    <a href="/script" class="nav-link">Script</a>
+  </nav>
 </div>
 
-<!-- Navigation Menu -->
-<nav class="menu" id="menu" role="navigation" aria-label="Main menu">
-  <a href="#" class="menu-link active" data-target="homePage">Home</a>
-  <a href="#" class="menu-link" data-target="keyPage">Key</a>
-  <a href="#" class="menu-link" data-target="staffPage">Staff</a>
-  <a href="#" class="menu-link" data-target="creditsPage">Credits</a>
-  <a href="#" class="menu-link" data-target="scriptPage">Script</a>
-</nav>
+<!-- Main content area -->
+<div id="pageContent">
+  <!-- Content will load here based on "page" -->
+</div>
 
-<!-- Pages as sections -->
-
-<!-- Home -->
-<main id="homePage" class="active" tabindex="0">
-  <h1>Welcome to the Ninja Key System</h1>
-  <p>This is the homepage where you can navigate to all parts of the site using the hamburger menu at the top left.</p>
-</main>
-
-<!-- Key -->
-<main id="keyPage" tabindex="0">
-  <h1>Choose Link:</h1>
-  <div class="link-container" aria-label="Choose a link service">
-    <div class="link-box" tabindex="0" role="button" aria-pressed="false" id="workinkBox">
-      <!-- Work.ink SVG icon -->
-      <svg class="link-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-        <circle cx="50" cy="50" r="48" stroke="#00bfff" stroke-width="4"/>
-        <path d="M30 60 L50 30 L70 60 Z" fill="#00bfff" />
-      </svg>
-      <button class="link-button" id="workinkBtn" type="button" aria-label="Go to Work.ink link">Go To</button>
-    </div>
-    <div class="link-box" tabindex="0" role="button" aria-pressed="false" id="linkvertiseBox">
-      <!-- Linkvertise SVG icon -->
-      <svg class="link-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-        <circle cx="32" cy="32" r="30" stroke="#00bfff" stroke-width="4"/>
-        <path d="M20 44 L32 20 L44 44 Z" fill="#00bfff" />
-      </svg>
-      <button class="link-button" id="linkvertiseBtn" type="button" aria-label="Go to Linkvertise link">Go To</button>
-    </div>
-  </div>
-  <div id="usernameSection">
-    <label for="username" style="font-size:1.3rem; font-weight:600; display:block; margin-bottom:8px;">Enter Your Roblox Username:</label>
-    <input type="text" id="username" placeholder="Roblox Username" aria-label="Roblox Username input" autocomplete="off" />
-    <div id="keyOutput" role="status" aria-live="polite"></div>
-  </div>
-</main>
-
-<!-- Staff -->
-<main id="staffPage" tabindex="0">
-  <h1>Our Staff</h1>
-  <p>Here is a list of our staff members and the reasons why they were recruited:</p>
-  <ul>
-    <li><strong>Jane Doe:</strong> Expert in security and key validation systems.</li>
-    <li><strong>John Smith:</strong> Handles community support and moderation.</li>
-    <li><strong>Mary Johnson:</strong> Frontend designer and UX specialist.</li>
-  </ul>
-</main>
-
-<!-- Credits -->
-<main id="creditsPage" tabindex="0">
-  <h1>Credits</h1>
-  <p>This entire Ninja Key System website was created by <strong>Victor</strong>. Thank you for visiting!</p>
-</main>
-
-<!-- Script -->
-<main id="scriptPage" tabindex="0">
-  <h1>Copy Script</h1>
-  <div id="codeContainer" class="code-container" role="textbox" aria-label="Lua script with syntax highlighting" tabindex="0" spellcheck="false" contenteditable="true" aria-multiline="true"></div>
-  <button id="copyBtn" aria-label="Copy script to clipboard">Copy Script</button>
-</main>
+<!-- PrismJS for syntax highlighting -->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lua.min.js"></script>
 
 <script>
-  // Hamburger toggle
-  const hamburgerWrapper = document.getElementById("hamburger");
-  const menu = document.getElementById("menu");
-  const menuLinks = document.querySelectorAll(".menu-link");
-  const pages = document.querySelectorAll("main");
+  // --- Hamburger menu rotation ---
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  let rotation = 0;
+  setInterval(() => {
+    rotation = (rotation + 90) % 360; // rotate 90 degrees every second
+    hamburgerBtn.style.transform = `rotate(${rotation}deg)`;
+  }, 1000);
 
-  hamburgerWrapper.addEventListener("click", () => {
-    hamburgerWrapper.classList.toggle("active");
-    menu.classList.toggle("active");
-  });
-
-  hamburgerWrapper.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      hamburgerWrapper.click();
+  // --- Hamburger toggle ---
+  const menu = document.getElementById('hamburgerMenu');
+  hamburgerBtn.addEventListener('click', () => {
+    if (menu.style.display === 'flex') {
+      menu.style.display = 'none';
+    } else {
+      menu.style.display = 'flex';
     }
   });
 
-  // Navigation click handler
-  menuLinks.forEach(link => {
-    link.addEventListener("click", (e) => {
+  // --- Navigation and page rendering ---
+  const pageContent = document.getElementById('pageContent');
+  
+  // Sample Lua script text with syntax highlighting for /script page
+  const luaScriptText = `-- Example Lua Script
+local function greet(name)
+  print("Hello, " .. name .. "!")
+end
+
+greet("Ninja")
+`;
+
+  // Function to render pages
+  function renderPage(path) {
+    switch(path) {
+      case '/home':
+        pageContent.innerHTML = `<h1>Welcome to Website Weld Ninja</h1>
+          <p>This is the default homepage of the site.</p>`;
+        break;
+
+      case '/key':
+        pageContent.innerHTML = `
+          <h1>Choose Link:</h1>
+          <div class="link-choice-container">
+            <div class="link-choice">
+              <img src="https://seeklogo.com/images/W/work-ink-logo-21209D8E7C-seeklogo.com.png" alt="work.ink" />
+              <button onclick="window.open('https://work.ink', '_blank')">Go To</button>
+            </div>
+            <div class="link-choice">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Linkvertise_logo.svg/2560px-Linkvertise_logo.svg.png" alt="linkvertise" />
+              <button onclick="window.open('https://linkvertise.com', '_blank')">Go To</button>
+            </div>
+          </div>
+        `;
+        break;
+
+      case '/staff':
+        pageContent.innerHTML = `
+          <h1>Our Staff</h1>
+          <p>Meet the awesome team behind this project. Each staff member was recruited for their dedication, skills, and passion.</p>
+        `;
+        break;
+
+      case '/credits':
+        pageContent.innerHTML = `
+          <h1>Credits</h1>
+          <p>Website Weld Ninja was created by Victor.</p>
+        `;
+        break;
+
+      case '/script':
+        pageContent.innerHTML = `
+          <h1>Copy Script</h1>
+          <pre><code id="codeBlock" class="language-lua">${luaScriptText}</code></pre>
+          <button id="copyBtn" title="Copy script">📋 Copy Script</button>
+          <button id="getKeyBtn">Get Key</button>
+        `;
+
+        // Highlight the Lua code
+        Prism.highlightAll();
+
+        // Copy script to clipboard
+        document.getElementById('copyBtn').addEventListener('click', () => {
+          navigator.clipboard.writeText(luaScriptText)
+            .then(() => alert('Script copied to clipboard!'))
+            .catch(() => alert('Failed to copy script.'));
+        });
+
+        // Redirect Get Key button to /key page
+        document.getElementById('getKeyBtn').addEventListener('click', () => {
+          navigateTo('/key');
+        });
+
+        break;
+
+      default:
+        pageContent.innerHTML = `<h1>404 - Page Not Found</h1><p>The page "${path}" does not exist.</p>`;
+        break;
+    }
+  }
+
+  // Router helper to navigate and render pages without reload
+  function navigateTo(path) {
+    history.pushState(null, null, path);
+    renderPage(path);
+    // Hide menu when navigating
+    menu.style.display = 'none';
+  }
+
+  // Attach click listeners to nav links
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', e => {
       e.preventDefault();
-      // Close menu
-      hamburgerWrapper.classList.remove("active");
-      menu.classList.remove("active");
-
-      // Remove active from all links and pages
-      menuLinks.forEach(l => l.classList.remove("active"));
-      pages.forEach(p => p.classList.remove("active"));
-
-      // Add active to clicked link
-      link.classList.add("active");
-
-      // Show correct page
-      const targetId = link.getAttribute("data-target");
-      document.getElementById(targetId).classList.add("active");
-      // Set focus to main content
-      document.getElementById(targetId).focus();
+      const href = e.target.getAttribute('href');
+      navigateTo(href);
     });
   });
 
-  // Links for key page
-  const workinkBtn = document.getElementById("workinkBtn");
-  const linkvertiseBtn = document.getElementById("linkvertiseBtn");
-  const workinkBox = document.getElementById("workinkBox");
-  const linkvertiseBox = document.getElementById("linkvertiseBox");
-
-  // Replace these URLs with your actual Linkvertise and Work.ink URLs
-  const workinkURL = "https://work.ink";
-  const linkvertiseURL = "https://linkvertise.com";
-
-  function openLink(url) {
-    window.open(url, "_blank", "noopener");
-  }
-
-  workinkBtn.addEventListener("click", () => openLink(workinkURL));
-  linkvertiseBtn.addEventListener("click", () => openLink(linkvertiseURL));
-
-  // Make entire boxes clickable and accessible
-  workinkBox.addEventListener("click", () => openLink(workinkURL));
-  linkvertiseBox.addEventListener("click", () => openLink(linkvertiseURL));
-
-  // Key generation after link completion
-  const usernameInput = document.getElementById("username");
-  const keyOutput = document.getElementById("keyOutput");
-
-  usernameInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      const username = usernameInput.value.trim();
-      if (!username) {
-        alert("Please enter your Roblox username.");
-        return;
-      }
-      // Here you would check if user completed the links
-      // For demo, we just ask for confirmation
-      if (confirm("Please complete the required Linkvertise and Work.ink steps outside this demo.\n\nClick OK once done to receive your key.")) {
-        const randomPart = Math.random().toString(36).substring(2, 8).toUpperCase();
-        const key = `NINJA_${randomPart}`;
-        keyOutput.textContent = `Your key: ${key}`;
-      }
-    }
+  // Handle browser back/forward buttons
+  window.addEventListener('popstate', () => {
+    renderPage(location.pathname);
   });
 
-  // Simple Lua syntax highlighter for the script page
-  const codeContainer = document.getElementById("codeContainer");
-  const copyBtn = document.getElementById("copyBtn");
+  // Load initial page based on URL
+  renderPage(location.pathname === '/' ? '/home' : location.pathname);
 
-  // Sample Lua script to display
-  const luaScript = `-- Your Roblox key system script here
-print("This is your Ninja Key System script!")
-
-local function generateKey()
-  local charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-  local key = "NINJA_"
-  for i = 1, 6 do
-    local rand = math.random(1, #charset)
-    key = key .. charset:sub(rand, rand)
-  end
-  return key
-end`;
-
-  // Lua keywords for highlighting
-  const luaKeywords = [
-    "and","break","do","else","elseif","end","false","for","function","goto",
-    "if","in","local","nil","not","or","repeat","return","then","true","until","while"
-  ];
-
-  // Escape HTML special chars
-  function escapeHtml(text) {
-    return text.replace(/&/g, "&amp;")
-               .replace(/</g, "&lt;")
-               .replace(/>/g, "&gt;");
-  }
-
-  // Basic syntax highlight function
-  function luaHighlight(code) {
-    let escaped = escapeHtml(code);
-
-    // Comments -- from -- to end of line
-    escaped = escaped.replace(/(--.*)/g, '<span class="comment">$1</span>');
-
-    // Strings " or '
-    escaped = escaped
+</script>
+</body>
+</html>
