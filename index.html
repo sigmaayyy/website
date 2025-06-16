@@ -1,173 +1,224 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Website Weld Ninja</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Website Weld Ninja</title>
+  
+  <!-- PrismJS CSS for Lua syntax highlighting -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.css" rel="stylesheet" />
 
-<!-- PrismJS CSS for Lua syntax highlighting -->
-<link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.css" rel="stylesheet" />
+  <style>
+    /* Reset and base styles */
+    body, html {
+      margin: 0; padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #111;
+      color: #eee;
+      overflow-x: hidden;
+    }
 
-<style>
-  /* Reset and basics */
-  body, html {
-    margin: 0; padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #111;
-    color: #eee;
-  }
+    a {
+      color: #4da6ff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
 
-  a {
-    color: #4da6ff;
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
+    /* --- Old hamburger container & button styles --- */
+    #hamburger-container {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 9999;
+      user-select: none;
+    }
 
-  /* Hamburger container */
-  #hamburger-container {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 1000;
-  }
+    #hamburgerBtn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 0;
+      box-sizing: border-box;
+      transition: transform 0.4s ease;
+      transform-origin: center center;
+    }
 
-  /* Hamburger button */
-  #hamburgerBtn {
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    font-size: 32px;
-    color: #4da6ff; /* blue color */
-    transform-origin: center center;
-    transition: transform 0.5s ease;
-    user-select: none;
-  }
+    /* Hamburger lines */
+    #hamburgerBtn span {
+      display: block;
+      width: 30px;
+      height: 4px;
+      background: #4da6ff; /* Blue */
+      border-radius: 2px;
+      transition: all 0.4s ease;
+      position: relative;
+    }
 
-  /* Hamburger menu panel */
-  #hamburgerMenu {
-    position: fixed;
-    top: 50px;
-    left: 10px;
-    width: 180px;
-    background: #004080;
-    border-radius: 8px;
-    box-shadow: 0 0 12px #004080cc;
-    padding: 15px 20px;
-    display: none;
-    flex-direction: column;
-    gap: 15px;
-    font-weight: 600;
-    font-size: 18px;
-  }
+    /* When active (menu open), transform lines into an X */
+    #hamburgerBtn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+    #hamburgerBtn.active span:nth-child(2) {
+      opacity: 0;
+    }
+    #hamburgerBtn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
 
-  #hamburgerMenu a {
-    display: block;
-    padding: 8px 12px;
-    background: #0066cc;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  #hamburgerMenu a:hover {
-    background: #3399ff;
-  }
+    /* Hamburger menu styles */
+    #hamburgerMenu {
+      position: fixed;
+      top: 60px;
+      left: 10px;
+      width: 200px;
+      background: #004080;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 15px #3399ffaa;
+      display: none;
+      flex-direction: column;
+      gap: 18px;
+      font-weight: 700;
+      font-size: 18px;
+      user-select: none;
+      z-index: 998;
+    }
 
-  /* Page container */
-  #pageContent {
-    max-width: 700px;
-    margin: 80px auto 40px auto;
-    padding: 0 20px;
-  }
+    #hamburgerMenu a {
+      padding: 10px 15px;
+      background: #0066cc;
+      border-radius: 8px;
+      color: white;
+      transition: background-color 0.3s ease;
+      text-align: center;
+      display: block;
+    }
+    #hamburgerMenu a:hover {
+      background: #3399ff;
+    }
 
-  /* Key page styles */
-  .link-choice-container {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  .link-choice {
-    background: #004080;
-    border-radius: 10px;
-    width: 250px;
-    height: 150px;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 0 15px #3399ff88;
-  }
-  .link-choice img {
-    width: 80px;
-    margin-bottom: 12px;
-  }
-  .link-choice button {
-    background: #3399ff;
-    border: none;
-    color: white;
-    font-weight: 700;
-    font-size: 16px;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  .link-choice button:hover {
-    background: #66b3ff;
-  }
+    /* Page container */
+    #pageContent {
+      max-width: 720px;
+      margin: 90px auto 40px auto;
+      padding: 0 20px;
+    }
 
-  /* Script page */
-  #scriptTextarea {
-    width: 100%;
-    height: 300px;
-    margin-top: 10px;
-    padding: 15px;
-    background: #222;
-    color: #eee;
-    font-family: monospace;
-    font-size: 14px;
-    border-radius: 8px;
-    border: none;
-    resize: none;
-  }
-  #copyIcon {
-    cursor: pointer;
-    font-size: 24px;
-    color: #4da6ff;
-    margin-left: 10px;
-    vertical-align: middle;
-  }
-  #getKeyBtn {
-    margin-top: 20px;
-    background: #4da6ff;
-    border: none;
-    padding: 12px 20px;
-    font-weight: 700;
-    font-size: 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    color: white;
-    transition: background 0.3s ease;
-  }
-  #getKeyBtn:hover {
-    background: #80bfff;
-  }
+    /* Key page */
+    .link-choice-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+    .link-choice {
+      background: #004080;
+      border-radius: 14px;
+      width: 260px;
+      height: 160px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 18px #3399ffcc;
+      transition: transform 0.3s ease;
+    }
+    .link-choice:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #66b3ffdd;
+    }
+    .link-choice img {
+      width: 90px;
+      margin-bottom: 15px;
+      user-select: none;
+    }
+    .link-choice button {
+      background: #3399ff;
+      border: none;
+      color: white;
+      font-weight: 700;
+      font-size: 17px;
+      padding: 10px 22px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    .link-choice button:hover {
+      background: #80bfff;
+    }
 
-  /* Staff and credits page */
-  p {
-    line-height: 1.5;
-  }
-</style>
+    /* Script page */
+    pre {
+      background: #222;
+      border-radius: 12px;
+      padding: 20px;
+      overflow-x: auto;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    #copyBtn {
+      margin-top: 15px;
+      background: #4da6ff;
+      border: none;
+      padding: 12px 25px;
+      font-weight: 700;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    #copyBtn:hover {
+      background: #80bfff;
+    }
+
+    #getKeyBtn {
+      margin-top: 20px;
+      background: #4da6ff;
+      border: none;
+      padding: 14px 28px;
+      font-weight: 700;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    #getKeyBtn:hover {
+      background: #80bfff;
+    }
+
+    /* Staff and credits page */
+    p {
+      line-height: 1.6;
+      font-size: 18px;
+    }
+  </style>
 </head>
 <body>
 
 <!-- Hamburger menu container -->
-<div id="hamburger-container">
-  <button id="hamburgerBtn" aria-label="Toggle menu">☰</button>
-  <nav id="hamburgerMenu" aria-label="Main navigation">
+<div id="hamburger-container" role="navigation" aria-label="Main menu">
+  <button id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="hamburgerMenu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <nav id="hamburgerMenu">
     <a href="/home" class="nav-link">Home</a>
     <a href="/key" class="nav-link">Key</a>
     <a href="/staff" class="nav-link">Staff</a>
@@ -177,8 +228,8 @@
 </div>
 
 <!-- Main content area -->
-<div id="pageContent">
-  <!-- Content will load here based on "page" -->
+<div id="pageContent" tabindex="0">
+  <!-- Content loads here -->
 </div>
 
 <!-- PrismJS for syntax highlighting -->
@@ -186,28 +237,26 @@
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lua.min.js"></script>
 
 <script>
-  // --- Hamburger menu rotation ---
+  // --- Hamburger rotation every second ---
   const hamburgerBtn = document.getElementById('hamburgerBtn');
   let rotation = 0;
   setInterval(() => {
-    rotation = (rotation + 90) % 360; // rotate 90 degrees every second
+    rotation = (rotation + 90) % 360;
     hamburgerBtn.style.transform = `rotate(${rotation}deg)`;
   }, 1000);
 
-  // --- Hamburger toggle ---
+  // --- Hamburger toggle menu ---
   const menu = document.getElementById('hamburgerMenu');
+
   hamburgerBtn.addEventListener('click', () => {
-    if (menu.style.display === 'flex') {
-      menu.style.display = 'none';
-    } else {
-      menu.style.display = 'flex';
-    }
+    const isActive = hamburgerBtn.classList.toggle('active');
+    menu.style.display = isActive ? 'flex' : 'none';
+    hamburgerBtn.setAttribute('aria-expanded', isActive);
   });
 
-  // --- Navigation and page rendering ---
+  // --- Navigation & page content rendering ---
   const pageContent = document.getElementById('pageContent');
-  
-  // Sample Lua script text with syntax highlighting for /script page
+
   const luaScriptText = `-- Example Lua Script
 local function greet(name)
   print("Hello, " .. name .. "!")
@@ -216,12 +265,13 @@ end
 greet("Ninja")
 `;
 
-  // Function to render pages
   function renderPage(path) {
     switch(path) {
       case '/home':
-        pageContent.innerHTML = `<h1>Welcome to Website Weld Ninja</h1>
-          <p>This is the default homepage of the site.</p>`;
+        pageContent.innerHTML = `
+          <h1>Welcome to Website Weld Ninja</h1>
+          <p>This is the default homepage of the site.</p>
+        `;
         break;
 
       case '/key':
@@ -229,11 +279,11 @@ greet("Ninja")
           <h1>Choose Link:</h1>
           <div class="link-choice-container">
             <div class="link-choice">
-              <img src="https://seeklogo.com/images/W/work-ink-logo-21209D8E7C-seeklogo.com.png" alt="work.ink" />
+              <img src="https://cdn-icons-png.flaticon.com/512/5968/5968943.png" alt="work.ink icon" />
               <button onclick="window.open('https://work.ink', '_blank')">Go To</button>
             </div>
             <div class="link-choice">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Linkvertise_logo.svg/2560px-Linkvertise_logo.svg.png" alt="linkvertise" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Linkvertise_logo.svg/1200px-Linkvertise_logo.svg.png" alt="linkvertise icon" />
               <button onclick="window.open('https://linkvertise.com', '_blank')">Go To</button>
             </div>
           </div>
@@ -257,43 +307,42 @@ greet("Ninja")
       case '/script':
         pageContent.innerHTML = `
           <h1>Copy Script</h1>
-          <pre><code id="codeBlock" class="language-lua">${luaScriptText}</code></pre>
-          <button id="copyBtn" title="Copy script">📋 Copy Script</button>
+          <pre><code class="language-lua">${luaScriptText}</code></pre>
+          <button id="copyBtn" aria-label="Copy script">📋 Copy Script</button>
           <button id="getKeyBtn">Get Key</button>
         `;
-
-        // Highlight the Lua code
         Prism.highlightAll();
 
-        // Copy script to clipboard
         document.getElementById('copyBtn').addEventListener('click', () => {
           navigator.clipboard.writeText(luaScriptText)
             .then(() => alert('Script copied to clipboard!'))
             .catch(() => alert('Failed to copy script.'));
         });
 
-        // Redirect Get Key button to /key page
         document.getElementById('getKeyBtn').addEventListener('click', () => {
           navigateTo('/key');
         });
-
         break;
 
       default:
-        pageContent.innerHTML = `<h1>404 - Page Not Found</h1><p>The page "${path}" does not exist.</p>`;
+        pageContent.innerHTML = `
+          <h1>404 - Page Not Found</h1>
+          <p>The page "${path}" does not exist.</p>
+        `;
         break;
     }
   }
 
-  // Router helper to navigate and render pages without reload
+  // Navigate function with history push
   function navigateTo(path) {
     history.pushState(null, null, path);
     renderPage(path);
-    // Hide menu when navigating
     menu.style.display = 'none';
+    hamburgerBtn.classList.remove('active');
+    hamburgerBtn.setAttribute('aria-expanded', false);
   }
 
-  // Attach click listeners to nav links
+  // Set up nav links listeners
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
@@ -302,14 +351,18 @@ greet("Ninja")
     });
   });
 
-  // Handle browser back/forward buttons
+  // Popstate for back/forward navigation
   window.addEventListener('popstate', () => {
     renderPage(location.pathname);
+    menu.style.display = 'none';
+    hamburgerBtn.classList.remove('active');
+    hamburgerBtn.setAttribute('aria-expanded', false);
   });
 
-  // Load initial page based on URL
+  // Load initial page
   renderPage(location.pathname === '/' ? '/home' : location.pathname);
 
 </script>
+
 </body>
 </html>
