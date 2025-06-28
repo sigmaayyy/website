@@ -82,6 +82,7 @@
   }
   .link-choice img {
     width: 100px;
+    border-radius: 10px;
   }
   .link-choice button {
     margin-top: 10px;
@@ -149,6 +150,15 @@
     menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
   }
 
+  // Close menu when clicking any nav link
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('#menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('menu').style.display = 'none';
+      });
+    });
+  });
+
   function loadPage() {
     const hash = location.hash || '#/home';
     const content = document.getElementById('content');
@@ -166,11 +176,11 @@
           <div class="link-choice-container">
             <div class="link-choice">
               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkE9RHoNVMBXZo8J1BaUD3pjIgL21hDFDV3w&s" alt="work.ink icon" />
-              <button onclick="window.open('https://workink.net/1ZPB/ninjakey', '_blank')">Choose Keysystem</button>
+              <button onclick="window.open('https://workink.net/1ZPB/ninjakey', '_blank')">Go To</button>
             </div>
             <div class="link-choice">
               <img src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/ddndl7hytkgdiy9u3uiz" alt="linkvertise icon" />
-              <button onclick="window.open('https://link-center.net/1354045/key-system', '_blank')">Choose Keysystem</button>
+              <button onclick="window.open('https://link-center.net/1354045/key-system', '_blank')">Go To</button>
             </div>
           </div>
         `;
