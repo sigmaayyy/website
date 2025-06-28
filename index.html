@@ -1,402 +1,177 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Website Weld Ninja</title>
-  
-  <!-- PrismJS CSS for Lua syntax highlighting -->
-  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.css" rel="stylesheet" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syntax Exploits</title>
   <style>
-    /* Reset and base styles */
-    body, html {
-      margin: 0; padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #111;
-      color: #eee;
-      overflow-x: hidden;
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      background: url('https://i.imgur.com/zVomS5u.png') no-repeat center center fixed;
+      background-size: cover;
     }
-
-    a {
-      color: #4da6ff;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /* --- Old hamburger container & button styles --- */
-    #hamburger-container {
+    body::before {
+      content: "";
       position: fixed;
-      top: 10px;
-      left: 10px;
-      z-index: 9999;
-      user-select: none;
+      top: 0; left: 0; right: 0; bottom: 0;
+      backdrop-filter: blur(8px);
+      z-index: -1;
     }
 
-    #hamburgerBtn {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      width: 40px;
-      height: 40px;
-      position: relative;
+    header {
+      display: flex;
+      align-items: center;
+      background-color: rgba(0, 0, 255, 0.7);
+      padding: 10px;
+    }
+    .hamburger {
+      width: 30px;
+      height: 25px;
       display: flex;
       flex-direction: column;
-      justify-content: space-around;
-      padding: 0;
-      box-sizing: border-box;
-      transition: transform 0.4s ease;
-      transform-origin: center center;
+      justify-content: space-between;
+      cursor: pointer;
+      background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+      padding: 5px;
+      border-radius: 5px;
     }
-
-    /* Hamburger lines */
-    #hamburgerBtn span {
-      display: block;
-      width: 30px;
+    .hamburger div {
       height: 4px;
-      background: #4da6ff; /* Blue */
+      background: white;
       border-radius: 2px;
-      transition: all 0.4s ease;
-      position: relative;
     }
 
-    /* When active (menu open), transform lines into an X */
-    #hamburgerBtn.active span:nth-child(1) {
-      transform: rotate(45deg) translate(6px, 6px);
-    }
-    #hamburgerBtn.active span:nth-child(2) {
-      opacity: 0;
-    }
-    #hamburgerBtn.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
-    }
-
-    /* Hamburger menu styles */
-    #hamburgerMenu {
-      position: fixed;
-      top: 60px;
-      left: 10px;
-      width: 200px;
-      background: #004080;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 0 15px #3399ffaa;
+    nav {
       display: none;
       flex-direction: column;
-      gap: 18px;
-      font-weight: 700;
-      font-size: 18px;
-      user-select: none;
-      z-index: 998;
+      position: fixed;
+      top: 0; left: 0;
+      background-color: rgba(0, 0, 255, 0.9);
+      height: 100%;
+      width: 200px;
+      padding: 20px;
     }
-
-    #hamburgerMenu a {
-      padding: 10px 15px;
-      background: #0066cc;
-      border-radius: 8px;
+    nav a {
       color: white;
-      transition: background-color 0.3s ease;
-      text-align: center;
-      display: block;
-    }
-    #hamburgerMenu a:hover {
-      background: #3399ff;
+      text-decoration: none;
+      margin: 10px 0;
     }
 
-    /* Page container */
-    #pageContent {
-      max-width: 720px;
-      margin: 90px auto 40px auto;
-      padding: 0 20px;
-    }
-
-    /* Key page */
     .link-choice-container {
       display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-      margin-top: 25px;
+      gap: 20px;
+      margin-top: 20px;
     }
     .link-choice {
-      background: #004080;
-      border-radius: 14px;
-      width: 260px;
-      height: 160px;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 0 18px #3399ffcc;
-      transition: transform 0.3s ease;
-    }
-    .link-choice:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px #66b3ffdd;
+      background: rgba(255,255,255,0.2);
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
     }
     .link-choice img {
-      width: 90px;
-      margin-bottom: 15px;
-      user-select: none;
+      width: 100px;
     }
     .link-choice button {
-      background: #3399ff;
-      border: none;
-      color: white;
-      font-weight: 700;
-      font-size: 17px;
-      padding: 10px 22px;
-      border-radius: 7px;
+      margin-top: 10px;
+      padding: 5px 10px;
       cursor: pointer;
-      transition: background 0.3s ease;
-      user-select: none;
-    }
-    .link-choice button:hover {
-      background: #80bfff;
     }
 
-    /* Script page */
     pre {
-      background: #222;
-      border-radius: 12px;
-      padding: 20px;
+      background: rgba(0,0,0,0.5);
+      padding: 10px;
+      border-radius: 8px;
       overflow-x: auto;
-      font-size: 15px;
-      line-height: 1.5;
-      white-space: pre-wrap;
-      word-wrap: break-word;
     }
-
-    #copyBtn {
-      margin-top: 15px;
-      background: #4da6ff;
-      border: none;
-      padding: 12px 25px;
-      font-weight: 700;
-      font-size: 18px;
-      border-radius: 10px;
-      cursor: pointer;
-      color: white;
-      transition: background 0.3s ease;
-      user-select: none;
-    }
-    #copyBtn:hover {
-      background: #80bfff;
-    }
-
-    #getKeyBtn {
-      margin-top: 20px;
-      background: #4da6ff;
-      border: none;
-      padding: 14px 28px;
-      font-weight: 700;
-      font-size: 18px;
-      border-radius: 10px;
-      cursor: pointer;
-      color: white;
-      transition: background 0.3s ease;
-      user-select: none;
-      margin-left: 10px;
-    }
-    #getKeyBtn:hover {
-      background: #80bfff;
-    }
-
-    /* Staff and credits page */
-    p {
-      line-height: 1.6;
-      font-size: 18px;
-      margin: 6px 0;
-    }
-
-    /* Credits page join discord button */
-    #discordBtn {
-      margin-top: 12px;
-      background: #7289da;
-      border: none;
-      padding: 12px 25px;
-      font-weight: 700;
-      font-size: 18px;
-      border-radius: 10px;
-      cursor: pointer;
-      color: white;
-      transition: background 0.3s ease;
-      user-select: none;
-      display: inline-block;
-    }
-    #discordBtn:hover {
-      background: #99aab5;
+    .staff-name {
+      color: cyan;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-
-<!-- Hamburger menu container -->
-<div id="hamburger-container" role="navigation" aria-label="Main menu">
-  <button id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="hamburgerMenu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-  <nav id="hamburgerMenu">
-    <a href="/home" class="nav-link">Home</a>
-    <a href="/key" class="nav-link">Key</a>
-    <a href="/staff" class="nav-link">Staff</a>
-    <a href="/credits" class="nav-link">Credits</a>
-    <a href="/script" class="nav-link">Script</a>
+  <header>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </header>
+  <nav id="menu">
+    <a href="#/home">Home</a>
+    <a href="#/key">Key</a>
+    <a href="#/staff">Staff</a>
+    <a href="#/credits">Credits</a>
+    <a href="#/script">Script</a>
   </nav>
-</div>
+  <main id="content" style="padding: 20px;"></main>
 
-<!-- Main content area -->
-<div id="pageContent" tabindex="0">
-  <!-- Content loads here -->
-</div>
-
-<!-- PrismJS for syntax highlighting -->
-<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lua.min.js"></script>
-
-<script>
-  // --- Hamburger rotation every second ---
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  let rotation = 0;
-  setInterval(() => {
-    rotation = (rotation + 90) % 360;
-    hamburgerBtn.style.transform = `rotate(${rotation}deg)`;
-  }, 1000);
-
-  // --- Hamburger toggle menu ---
-  const menu = document.getElementById('hamburgerMenu');
-
-  hamburgerBtn.addEventListener('click', () => {
-    const isActive = hamburgerBtn.classList.toggle('active');
-    menu.style.display = isActive ? 'flex' : 'none';
-    hamburgerBtn.setAttribute('aria-expanded', isActive);
-  });
-
-  // --- Navigation & page content rendering ---
-  const pageContent = document.getElementById('pageContent');
-
-  // Script code you provided
-  const luaScriptText = `loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/slap-battles-badge-autofarm.lua"))()`;
-
-  function renderPage(path) {
-    switch(path) {
-      case '/home':
-        pageContent.innerHTML = `
-          <h1>Welcome to Syntax</h1>
-          <p>We used to be Ninja Scripts, now we're called Syntax.</p>
-        `;
-        break;
-
-      case '/key':
-        pageContent.innerHTML = `
-          <h1>Choose Link:</h1>
-          <div class="link-choice-container">
-            <div class="link-choice">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkE9RHoNVMBXZo8J1BaUD3pjIgL21hDFDV3w&s" alt="work.ink icon" />
-              <button onclick="window.open('https://workink.net/1ZPB/ninjakey', '_blank')">Choose Keysystem</button>
-            </div>
-            <div class="link-choice">
-              <img src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/ddndl7hytkgdiy9u3uiz" alt="linkvertise icon" />
-              <button onclick="window.open('https://link-center.net/1354045/key-system', '_blank')">Choose Keysystem</button>
-            </div>
-          </div>
-        `;
-        break;
-
-      case '/staff':
-        pageContent.innerHTML = `
-          <h1>Our Staff</h1>
-          <p>-redefined- The guy who helped me develop the Ninja Scripts server.</p>
-          <p>-Domi- He's active and invited people to the server. He's a good guy.</p>
-          <p>-Xbamz- My long lost friend.</p>
-          <p>-grace- Spotted a bug and is a tester for the script.</p>
-          <p>-[PREMIUM] 0- He's a developer even though he never helped me with anything!.</p>
-          <p>-BX- Also a developer but never helped me with anything.</p>
-        `;
-        break;
-
-      case '/credits':
-        pageContent.innerHTML = `
-          <h1>Credits</h1>
-          <p>Was made by Hunter [Ninja Scripts Owner]</p>
-          <button id="discordBtn" aria-label="Join Discord server">Join Discord</button>
-        `;
-
-        // Add button click handler after DOM injection
-        setTimeout(() => {
-          const discordBtn = document.getElementById('discordBtn');
-          if (discordBtn) {
-            discordBtn.addEventListener('click', () => {
-              window.open('https://discord.gg/PfbeUhppbc', '_blank');
-            });
-          }
-        }, 0);
-        break;
-
-      case '/script':
-        pageContent.innerHTML = `
-          <h1>Copy Script</h1>
-          <pre><code class="language-lua">${luaScriptText}</code></pre>
-          <button id="copyBtn" aria-label="Copy script">📋 Copy Script</button>
-          <button id="getKeyBtn">Get Key</button>
-        `;
-        Prism.highlightAll();
-
-        document.getElementById('copyBtn').addEventListener('click', () => {
-          navigator.clipboard.writeText(luaScriptText)
-            .then(() => alert('Script copied to clipboard!'))
-            .catch(() => alert('Failed to copy script.'));
-        });
-
-        document.getElementById('getKeyBtn').addEventListener('click', () => {
-          navigateTo('/key');
-        });
-        break;
-
-      default:
-        pageContent.innerHTML = `
-          <h1>404 - Page Not Found</h1>
-          <p>The page "${path}" does not exist.</p>
-        `;
-        break;
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
     }
-  }
 
-  // Navigate function with history push
-  function navigateTo(path) {
-    history.pushState(null, null, path);
-    renderPage(path);
-    menu.style.display = 'none';
-    hamburgerBtn.classList.remove('active');
-    hamburgerBtn.setAttribute('aria-expanded', false);
-  }
+    function loadPage() {
+      const hash = location.hash || '#/home';
+      const content = document.getElementById('content');
 
-  // Set up nav links listeners
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const href = e.target.getAttribute('href');
-      navigateTo(href);
-    });
-  });
+      switch (hash) {
+        case '#/home':
+          content.innerHTML = `
+            <h1>Welcome to Syntax</h1>
+            <p>We used to be Ninja Scripts, now we're called Syntax.</p>
+          `;
+          break;
+        case '#/key':
+          content.innerHTML = `
+            <h1>Choose Link:</h1>
+            <div class="link-choice-container">
+              <div class="link-choice">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkE9RHoNVMBXZo8J1BaUD3pjIgL21hDFDV3w&s" alt="work.ink icon" />
+                <button onclick="window.open('https://workink.net/1ZPB/ninjakey', '_blank')">Choose Keysystem</button>
+              </div>
+              <div class="link-choice">
+                <img src="https://images.crunchbase.com/image/upload/c_pad,h_256,w_256,f_auto,q_auto:eco,dpr_1/ddndl7hytkgdiy9u3uiz" alt="linkvertise icon" />
+                <button onclick="window.open('https://link-center.net/1354045/key-system', '_blank')">Choose Keysystem</button>
+              </div>
+            </div>
+          `;
+          break;
+        case '#/staff':
+          content.innerHTML = `
+            <h1>Our Staff</h1>
+            <p><span class="staff-name">-redefined-</span> The guy who helped me develop the Ninja Scripts server.</p>
+            <p><span class="staff-name">-Domi-</span> He's active and invited people to the server. He's a good guy.</p>
+            <p><span class="staff-name">-Xbamz-</span> My long lost friend.</p>
+            <p><span class="staff-name">-grace-</span> Spotted a bug and is a tester for the script.</p>
+            <p><span class="staff-name">-[PREMIUM] 0-</span> He's a developer even though he never helped me with anything!.</p>
+            <p><span class="staff-name">-BX-</span> Also a developer but never helped me with anything.</p>
+          `;
+          break;
+        case '#/credits':
+          content.innerHTML = `
+            <p>Was made by Hunter [Ninja Scripts Owner]</p>
+            <button onclick="window.open('https://discord.gg/PfbeUhppbc', '_blank')">Join Discord</button>
+          `;
+          break;
+        case '#/script':
+          content.innerHTML = `
+            <h1>Copy Script</h1>
+            <pre>loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/6.5.lua"))()</pre>
+            <button onclick="navigator.clipboard.writeText('loadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/6.5.lua\\\"))()')">Copy</button>
+            <button onclick="location.hash='#/key'">Get Key</button>
+          `;
+          break;
+        default:
+          content.innerHTML = "<h1>404: Page Not Found</h1>";
+      }
+    }
 
-  // Popstate for back/forward navigation
-  window.addEventListener('popstate', () => {
-    renderPage(location.pathname);
-    menu.style.display = 'none';
-    hamburgerBtn.classList.remove('active');
-    hamburgerBtn.setAttribute('aria-expanded', false);
-  });
-
-  // Load initial page
-  renderPage(location.pathname === '/' ? '/home' : location.pathname);
-
-</script>
-
+    window.addEventListener('hashchange', loadPage);
+    window.addEventListener('load', loadPage);
+  </script>
 </body>
 </html>
