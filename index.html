@@ -1,209 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Syntax Hub</title>
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/5968/5968267.png" type="image/png">
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Syntax Hub</title>
+  <link rel="icon" href="https://i.imgur.com/zVomS5u.png" type="image/x-icon"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      background: url('https://i.imgur.com/zVomS5u.png') no-repeat center center fixed;
+      background-size: cover;
+    }
 
-      body {
-        background: url('https://wallpapercave.com/wp/wp5128415.jpg') no-repeat center center fixed;
-        background-size: cover;
-        backdrop-filter: blur(10px);
-        min-height: 100vh;
-        color: white;
-      }
+    .overlay {
+      backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+      padding: 1rem;
+    }
 
-      header {
-        background-color: rgba(0, 0, 0, 0.8);
-        padding: 1rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-      }
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-      .logo {
-        font-size: 1.5rem;
-        font-weight: bold;
-      }
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
 
+    nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    nav a {
+      background-color: #111;
+      padding: 6px 12px;
+      border-radius: 6px;
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #333;
+    }
+
+    .section {
+      margin: 2rem auto;
+      max-width: 800px;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+    }
+
+    .section h2 {
+      margin-top: 0;
+    }
+
+    .btn {
+      background-color: #007bff;
+      color: white;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .staff-entry {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+    }
+
+    /* Mobile Menu */
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      font-size: 24px;
+      color: gold;
+    }
+
+    @media (max-width: 768px) {
       nav {
+        display: none;
+        flex-direction: column;
+        background-color: rgba(0, 0, 0, 0.95);
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        padding: 1rem;
+        border-radius: 8px;
+      }
+
+      nav.show {
         display: flex;
-        gap: 1rem;
-      }
-
-      nav a {
-        color: white;
-        text-decoration: none;
-        padding: 0.5rem 1rem;
-        background: #1e1e1e;
-        border-radius: 5px;
-        transition: 0.3s;
-      }
-
-      nav a:hover {
-        background: #444;
       }
 
       .hamburger {
-        display: none;
-        flex-direction: column;
-        cursor: pointer;
-        background: gold;
-        padding: 5px;
-        border-radius: 5px;
+        display: block;
       }
-
-      .hamburger div {
-        width: 25px;
-        height: 3px;
-        background: #000;
-        margin: 3px 0;
-      }
-
-      .mobile-menu {
-        display: none;
-        flex-direction: column;
-        background: rgba(0, 0, 0, 0.9);
-        position: absolute;
-        top: 70px;
-        right: 10px;
-        padding: 10px;
-        border-radius: 10px;
-        z-index: 999;
-      }
-
-      .mobile-menu a {
-        margin: 5px 0;
-      }
-
-      main {
-        padding: 2rem;
-      }
-
-      .highlight {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 10px;
-        margin: 5px 0;
-        border-radius: 5px;
-      }
-
-      .copy-box {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 20px;
-        margin-top: 20px;
-        border-radius: 10px;
-        max-width: 400px;
-      }
-
-      button {
-        background: #007BFF;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-
-      button:hover {
-        background: #0056b3;
-      }
-
-      @media (max-width: 768px) {
-        nav {
-          display: none;
-        }
-
-        .hamburger {
-          display: flex;
-        }
-
-        .mobile-menu.show {
-          display: flex;
-        }
-      }
-    </style>
-  </head>
-  <body>
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
     <header>
-      <div class="logo">Syntax Hub</div>
-      <nav>
+      <h1>Syntax Hub</h1>
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+      <nav id="menu">
         <a href="#home">Home</a>
         <a href="#premium">Premium</a>
         <a href="#script">Script</a>
         <a href="#staff">Staff</a>
         <a href="#credits">Credits</a>
       </nav>
-      <div class="hamburger" onclick="toggleMenu()">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-      <div class="mobile-menu" id="mobileMenu">
-        <a href="#home" onclick="toggleMenu()">Home</a>
-        <a href="#premium" onclick="toggleMenu()">Premium</a>
-        <a href="#script" onclick="toggleMenu()">Script</a>
-        <a href="#staff" onclick="toggleMenu()">Staff</a>
-        <a href="#credits" onclick="toggleMenu()">Credits</a>
-      </div>
     </header>
-    <main>
-      <section id="home">
-        <h1>Welcome to Syntax</h1>
-        <p>We used to be Ninja Scripts, now we're called Syntax.</p>
-      </section>
 
-      <section id="premium">
-        <h1>Premium</h1>
-        <div class="copy-box">
-          <p>Get Premium</p>
-          <button onclick="copyToClipboard('ninjakid682')">Copy PayPal Username</button>
-        </div>
-      </section>
+    <div class="section" id="home">
+      <h2>Welcome to Syntax</h2>
+      <p>We used to be Ninja Scripts, now we're called Syntax.</p>
+    </div>
 
-      <section id="script">
-        <h1>Script</h1>
-        <pre><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/6.5.lua"))()</code></pre>
-      </section>
+    <div class="section" id="premium">
+      <h2>Premium</h2>
+      <div style="background-color: rgba(0,0,0,0.4); padding: 1rem; border-radius: 10px;">
+        <p><strong>Get Premium</strong></p>
+        <button class="btn" onclick="copyToClipboard('ninjakid682')">Copy PayPal Username</button>
+      </div>
+    </div>
 
-      <section id="staff">
-        <h1>Our Staff</h1>
-        <p class="highlight">-redefined- The guy who helped me develop the Ninja Scripts server.</p>
-        <p class="highlight">-Domi- He's active and invited people to the server. He's a good guy.</p>
-        <p class="highlight">-Xbamz- My long lost friend.</p>
-        <p class="highlight">-grace- Spotted a bug and is a tester for the script.</p>
-        <p class="highlight">-[PREMIUM] 0- He's a developer even though he never helped me with anything!.</p>
-        <p class="highlight">-BX- Also a developer but never helped me with anything.</p>
-      </section>
+    <div class="section" id="script">
+      <h2>Script</h2>
+      <code>loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/6.5.lua"))()</code>
+    </div>
 
-      <section id="credits">
-        <h1>Credits</h1>
-        <p>Was made by Hunter [Ninja Scripts Owner]</p>
-        <button onclick="window.open('https://discord.gg/PfbeUhppbc', '_blank')">Join Discord</button>
-      </section>
-    </main>
+    <div class="section" id="staff">
+      <h2>Our Staff</h2>
+      <div class="staff-entry">- <b>redefined</b>: The guy who helped me develop the Ninja Scripts server.</div>
+      <div class="staff-entry">- <b>Domi</b>: He's active and invited people to the server. He's a good guy.</div>
+      <div class="staff-entry">- <b>XBamz</b>: My long lost friend.</div>
+      <div class="staff-entry">- <b>grace</b>: Spotted a bug and is a tester for the script.</div>
+      <div class="staff-entry">- <b>[PREMIUM] 0</b>: He's a developer even though he never helped me with anything!</div>
+      <div class="staff-entry">- <b>BX</b>: Also a developer but never helped me with anything.</div>
+    </div>
 
-    <script>
-      function toggleMenu() {
-        const menu = document.getElementById('mobileMenu');
-        menu.classList.toggle('show');
+    <div class="section" id="credits">
+      <h2>Credits</h2>
+      <p>Was made by Hunter [Ninja Scripts Owner]</p>
+      <button class="btn" onclick="window.open('https://discord.gg/PfbeUhppbc', '_blank')">Join Discord</button>
+    </div>
+  </div>
+
+  <script>
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text)
+        .then(() => alert("Copied: " + text))
+        .catch(err => alert("Failed to copy."));
+    }
+
+    function toggleMenu() {
+      const menu = document.getElementById("menu");
+      menu.classList.toggle("show");
+    }
+
+    window.onclick = function(e) {
+      const menu = document.getElementById("menu");
+      const hamburger = document.querySelector(".hamburger");
+      if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
+        menu.classList.remove("show");
       }
-
-      function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(() => {
-          alert("Copied to clipboard: " + text);
-        });
-      }
-    </script>
-  </body>
+    };
+  </script>
+</body>
 </html>
