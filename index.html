@@ -150,13 +150,14 @@
         content.innerHTML = `
           <h1>Get Premium</h1>
           <div class="premium-box">
-            <p>Short-Time Key: $1</p>
+            <p>Short-Time Key: $1 or ⏣50</p>
             <p>Medium-Key: $2</p>
             <p>Lifetime: $5/month</p>
             <p>Administrator: $3</p>
             <p>Head Administrator: $5</p>
             <p>Owner: $15/month</p>
             <button onclick="navigator.clipboard.writeText('ninjakid682')">Copy PayPal Username</button>
+            <button onclick="navigator.clipboard.writeText('https://www.roblox.com/game-pass/1233739253/Premium')">Copy Roblox Short-Time Key Gamepass</button>
           </div>
         `;
         break;
@@ -180,8 +181,8 @@
       case '#/script':
         content.innerHTML = `
           <h1>Copy Script</h1>
-          <pre>loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/7.5.lua"))()</pre>
-          <button onclick="navigator.clipboard.writeText('loadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/7.5.lua\\\"))()')">Copy</button>
+          <pre>loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/8.5.lua"))()</pre>
+          <button onclick="navigator.clipboard.writeText('loadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/8.5.lua\\\"))()')">Copy</button>
           <button onclick="location.hash='#/premium'">Get Premium</button>
         `;
         break;
