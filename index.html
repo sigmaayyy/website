@@ -1,181 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Badge Hub</title>
-  <link rel="icon" type="image/png" href="https://i.imgur.com/zVomS5u.png"> <!-- Replace with your icon URL -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Syntax Exploits</title>
+  <link rel="icon" href="https://i.imgur.com/zVomS5u.png" /> <!-- Replace with your icon URL -->
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       font-family: Arial, sans-serif;
-      background-color: #121212;
+    }
+    body {
+      background: #0e0e0e url('https://i.imgur.com/zVomS5u.png') no-repeat center center fixed;
+      background-size: cover;
+      backdrop-filter: blur(8px);
       color: white;
     }
-
-    header {
-      background-color: #1e1e1e;
-      padding: 1rem;
+    nav {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-    }
-
-    .hamburger {
-      font-size: 1.8rem;
-      cursor: pointer;
-      color: gold;
-      border: none;
-      background: none;
-    }
-
-    .menu {
-      position: fixed;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #121212;
+      position: sticky;
       top: 0;
-      left: 0;
-      height: 100vh;
-      width: 250px;
-      background-color: #1a1a1a;
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      padding-top: 4rem;
       z-index: 1000;
     }
-
-    .menu.open {
-      transform: translateX(0);
-    }
-
-    .menu a {
-      display: block;
-      padding: 1rem;
-      text-decoration: none;
-      color: white;
-    }
-
-    .menu a:hover {
-      background-color: #333;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: none;
+    .logo {
       font-size: 1.5rem;
-      color: white;
-      cursor: pointer;
+      font-weight: bold;
     }
-
+    .menu-toggle {
+      font-size: 2rem;
+      cursor: pointer;
+      color: gold;
+    }
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 250px;
+      background-color: #1a1a1a;
+      padding: 2rem;
+    }
+    .nav-links.active {
+      display: flex;
+    }
+    .nav-links a {
+      color: white;
+      margin-bottom: 1rem;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+    .close-btn {
+      align-self: flex-end;
+      font-size: 2rem;
+      cursor: pointer;
+      color: gold;
+    }
     main {
       padding: 2rem;
     }
-
-    .section {
-      margin-bottom: 2rem;
-      padding: 1.5rem;
-      background-color: #1e1e1e;
+    .highlight {
+      color: gold;
+    }
+    .link-choice-container {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    .link-choice img {
+      width: 100px;
+      height: 100px;
       border-radius: 10px;
-      box-shadow: 0 0 10px #00000050;
     }
-
-    .section h2 {
-      margin-top: 0;
-    }
-
-    .box {
-      margin: 1rem 0;
-      padding: 1rem;
-      background-color: #2a2a2a;
-      border-radius: 8px;
-    }
-
-    button {
+    .link-choice button {
       margin-top: 0.5rem;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      background-color: #007bff;
-      color: white;
-      transition: background-color 0.2s;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    code {
-      background-color: #2a2a2a;
       padding: 0.5rem;
-      border-radius: 5px;
-      display: block;
-      margin-top: 0.5rem;
-      white-space: pre-wrap;
-      color: #00ffcc;
+      background: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button.copy {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #3a3aff;
+      color: white;
+      border: none;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Badge Hub</h1>
-    <button class="hamburger" onclick="toggleMenu()">☰</button>
-  </header>
-
-  <nav class="menu" id="menu">
-    <button class="close-btn" onclick="toggleMenu()">✖</button>
-    <a href="#premium">Premium</a>
-    <a href="#script">Script</a>
-    <a href="#staff">Staff</a>
+  <nav>
+    <div class="logo">Syntax</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div class="nav-links" id="navLinks">
+      <div class="close-btn" onclick="toggleMenu()">×</div>
+      <a href="#" onclick="loadPage('/home')">Home</a>
+      <a href="#" onclick="loadPage('/premium')">Premium</a>
+      <a href="#" onclick="loadPage('/script')">Script</a>
+      <a href="#" onclick="loadPage('/staff')">Staff</a>
+      <a href="#" onclick="loadPage('/credits')">Credits</a>
+    </div>
   </nav>
-
-  <main>
-    <section id="premium" class="section">
-      <h2>Premium</h2>
-      <div class="box">
-        <p><strong>Get Premium:</strong></p>
-        <button onclick="copyPayPal()">Copy PayPal Username</button>
-      </div>
-    </section>
-
-    <section id="script" class="section">
-      <h2>Script</h2>
-      <div class="box">
-        <p>Click the button below to copy the script:</p>
-        <code>loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/8.5.lua"))()</code>
-        <button onclick="copyScript()">Copy</button>
-      </div>
-    </section>
-
-    <section id="staff" class="section">
-      <h2>Staff</h2>
-      <div class="box">
-        <p><strong><span style="color: #00ffff;">Admin1</span></strong></p>
-        <p><strong><span style="color: #00ffff;">Admin2</span></strong></p>
-        <p><strong><span style="color: #00ffff;">Admin3</span></strong></p>
-      </div>
-    </section>
+  <main id="pageContent">
+    <h1>Welcome to Syntax</h1>
+    <p>We used to be Ninja Scripts, now we're called Syntax.</p>
   </main>
 
   <script>
     function toggleMenu() {
-      const menu = document.getElementById('menu');
-      menu.classList.toggle('open');
+      document.getElementById('navLinks').classList.toggle('active');
     }
 
-    function copyPayPal() {
-      navigator.clipboard.writeText('ninjakid682')
-        .then(() => alert('PayPal username copied!'))
-        .catch(() => alert('Failed to copy.'));
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Copied: ' + text);
+      });
     }
 
-    function copyScript() {
-      const script = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/8.5.lua"))()';
-      navigator.clipboard.writeText(script)
-        .then(() => alert('Script copied!'))
-        .catch(() => alert('Failed to copy.'));
+    function loadPage(path) {
+      const content = document.getElementById('pageContent');
+      switch(path) {
+        case '/home':
+          content.innerHTML = `<h1>Welcome to Syntax</h1><p>We used to be Ninja Scripts, now we're called Syntax.</p>`;
+          break;
+        case '/premium':
+          content.innerHTML = `
+            <h1>Get Premium</h1>
+            <div class="premium-box">
+              <p>Support us and unlock premium features.</p>
+              <button class="copy" onclick="copyToClipboard('ninjakid682')">Copy PayPal Username</button>
+            </div>
+          `;
+          break;
+        case '/script':
+          content.innerHTML = `
+            <h1>Script</h1>
+            <p>loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/8.5.lua"))()</p>
+          `;
+          break;
+        case '/staff':
+          content.innerHTML = `
+            <h1>Our Staff</h1>
+            <p class="highlight">-redefined- The guy who helped me develop the Ninja Scripts server.</p>
+            <p class="highlight">-Domi- He's active and invited people to the server. He's a good guy.</p>
+            <p class="highlight">-Xbamz- My long lost friend.</p>
+            <p class="highlight">-grace- Spotted a bug and is a tester for the script.</p>
+            <p class="highlight">-[PREMIUM] 0- He's a developer even though he never helped me with anything!</p>
+            <p class="highlight">-BX- Also a developer but never helped me with anything.</p>
+          `;
+          break;
+        case '/credits':
+          content.innerHTML = `
+            <h1>Credits</h1>
+            <p>Was made by Hunter [Ninja Scripts Owner]</p>
+            <button onclick="window.open('https://discord.gg/PfbeUhppbc', '_blank')">Join Discord</button>
+          `;
+          break;
+        default:
+          content.innerHTML = `<h1>404 - Page Not Found</h1>`;
+      }
     }
   </script>
 </body>
 </html>
-
