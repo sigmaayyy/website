@@ -1,198 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Syntax Exploits</title>
-<style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    color: white;
-    background: rgba(0,0,0,0.8) url('https://i.imgur.com/zVomS5u.png') no-repeat center center fixed;
-    background-size: cover;
-  }
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(8px);
-    z-index: -1;
-  }
+  <meta charset="UTF-8">
+  <title>Badge Hub</title>
+  <link rel="icon" type="image/png" href="https://i.imgur.com/zVomS5u.png"> <!-- Replace with your icon URL -->
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: white;
+    }
 
-  header {
-    display: flex;
-    align-items: center;
-    background-color: rgba(0, 0, 80, 0.85);
-    padding: 10px;
-  }
+    header {
+      background-color: #1e1e1e;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-  .hamburger {
-    width: 30px;
-    height: 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    cursor: pointer;
-    padding: 5px;
-  }
-  .hamburger div {
-    height: 4px;
-    background: gold;
-    border-radius: 2px;
-  }
+    .hamburger {
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: gold;
+      border: none;
+      background: none;
+    }
 
-  nav {
-    display: none;
-    flex-direction: column;
-    position: fixed;
-    top: 0; left: 0;
-    background-color: rgba(0, 0, 40, 0.95);
-    height: 100%;
-    width: 220px;
-    padding: 20px;
-    z-index: 10;
-  }
-  nav a {
-    color: white;
-    text-decoration: none;
-    margin: 10px 0;
-    font-size: 18px;
-    padding: 8px;
-    border-radius: 6px;
-    transition: background 0.3s;
-  }
-  nav a:hover {
-    background: rgba(255, 215, 0, 0.2);
-  }
+    .menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 250px;
+      background-color: #1a1a1a;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      padding-top: 4rem;
+      z-index: 1000;
+    }
 
-  .premium-box {
-    background: rgba(255,255,255,0.15);
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 300px;
-    text-align: center;
-    margin-top: 20px;
-  }
+    .menu.open {
+      transform: translateX(0);
+    }
 
-  button {
-    margin-top: 10px;
-    padding: 8px 14px;
-    cursor: pointer;
-    border: none;
-    border-radius: 6px;
-    background: gold;
-    color: black;
-    font-weight: bold;
-    transition: background 0.3s;
-  }
-  button:hover {
-    background: #e6c200;
-  }
+    .menu a {
+      display: block;
+      padding: 1rem;
+      text-decoration: none;
+      color: white;
+    }
 
-  pre {
-    background: rgba(0,0,0,0.6);
-    padding: 10px;
-    border-radius: 8px;
-    overflow-x: auto;
-  }
+    .menu a:hover {
+      background-color: #333;
+    }
 
-  .staff-name {
-    color: cyan;
-    font-weight: bold;
-  }
-</style>
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    main {
+      padding: 2rem;
+    }
+
+    .section {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #00000050;
+    }
+
+    .section h2 {
+      margin-top: 0;
+    }
+
+    .box {
+      margin: 1rem 0;
+      padding: 1rem;
+      background-color: #2a2a2a;
+      border-radius: 8px;
+    }
+
+    button {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    code {
+      background-color: #2a2a2a;
+      padding: 0.5rem;
+      border-radius: 5px;
+      display: block;
+      margin-top: 0.5rem;
+      white-space: pre-wrap;
+      color: #00ffcc;
+    }
+  </style>
 </head>
 <body>
-<header>
-  <div class="hamburger" onclick="toggleMenu()">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-</header>
-<nav id="menu">
-  <a href="#/home">Home</a>
-  <a href="#/premium">Premium</a>
-  <a href="#/staff">Staff</a>
-  <a href="#/credits">Credits</a>
-  <a href="#/script">Script</a>
-</nav>
-<main id="content" style="padding: 20px;"></main>
+  <header>
+    <h1>Badge Hub</h1>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+  </header>
 
-<script>
-  function toggleMenu() {
-    const menu = document.getElementById('menu');
-    menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
-  }
+  <nav class="menu" id="menu">
+    <button class="close-btn" onclick="toggleMenu()">✖</button>
+    <a href="#premium">Premium</a>
+    <a href="#script">Script</a>
+    <a href="#staff">Staff</a>
+  </nav>
 
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('#menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.getElementById('menu').style.display = 'none';
-      });
-    });
-  });
+  <main>
+    <section id="premium" class="section">
+      <h2>Premium</h2>
+      <div class="box">
+        <p><strong>Get Premium:</strong></p>
+        <button onclick="copyPayPal()">Copy PayPal Username</button>
+      </div>
+    </section>
 
-  function loadPage() {
-    const hash = location.hash || '#/home';
-    const content = document.getElementById('content');
+    <section id="script" class="section">
+      <h2>Script</h2>
+      <div class="box">
+        <p>Click the button below to copy the script:</p>
+        <code>loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/8.5.lua"))()</code>
+        <button onclick="copyScript()">Copy</button>
+      </div>
+    </section>
 
-    switch (hash) {
-      case '#/home':
-        content.innerHTML = `
-          <h1>Welcome to Syntax</h1>
-          <p>We used to be Ninja Scripts, now we're called Syntax.</p>
-        `;
-        break;
-      case '#/premium':
-        content.innerHTML = `
-          <h1>Get Premium</h1>
-          <div class="premium-box">
-            <p>Short-Time Key: $1 or ⏣50</p>
-            <p>Medium-Key: $2</p>
-            <p>Lifetime: $5/month</p>
-            <p>Administrator: $3</p>
-            <p>Head Administrator: $5</p>
-            <p>Owner: $15/month</p>
-            <button onclick="navigator.clipboard.writeText('ninjakid682')">Copy PayPal Username</button>
-            <button onclick="navigator.clipboard.writeText('https://www.roblox.com/game-pass/1233739253/Premium')">Copy Roblox Short-Time Key Gamepass</button>
-          </div>
-        `;
-        break;
-      case '#/staff':
-        content.innerHTML = `
-          <h1>Our Staff</h1>
-          <p><span class="staff-name">redefined</span> The guy who helped me develop the Syntax Exploits server.</p>
-          <p><span class="staff-name">Domi</span> He's active and invited people to the server. He's a good guy.</p>
-          <p><span class="staff-name">Xbamz</span> My long lost friend.</p>
-          <p><span class="staff-name">grace</span> Spotted a bug and is a tester for the script.</p>
-          <p><span class="staff-name">[PREMIUM] 0</span> He's a developer even though he never helped me with anything!.</p>
-          <p><span class="staff-name">BX</span> Also a developer but never helped me with anything.</p>
-        `;
-        break;
-      case '#/credits':
-        content.innerHTML = `
-          <p>Was made by Hunter [Syntax Exploits Owner]</p>
-          <button onclick="window.open('https://discord.gg/PfbeUhppbc', '_blank')">Join Discord</button>
-        `;
-        break;
-      case '#/script':
-        content.innerHTML = `
-          <h1>Copy Script</h1>
-          <pre>loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/8.5.lua"))()</pre>
-          <button onclick="navigator.clipboard.writeText('loadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/8.5.lua\\\"))()')">Copy</button>
-          <button onclick="location.hash='#/premium'">Get Premium</button>
-        `;
-        break;
-      default:
-        content.innerHTML = "<h1>404: Page Not Found</h1>";
+    <section id="staff" class="section">
+      <h2>Staff</h2>
+      <div class="box">
+        <p><strong><span style="color: #00ffff;">Admin1</span></strong></p>
+        <p><strong><span style="color: #00ffff;">Admin2</span></strong></p>
+        <p><strong><span style="color: #00ffff;">Admin3</span></strong></p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.classList.toggle('open');
     }
-  }
 
-  window.addEventListener('hashchange', loadPage);
-  window.addEventListener('load', loadPage);
-</script>
+    function copyPayPal() {
+      navigator.clipboard.writeText('ninjakid682')
+        .then(() => alert('PayPal username copied!'))
+        .catch(() => alert('Failed to copy.'));
+    }
+
+    function copyScript() {
+      const script = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/8.5.lua"))()';
+      navigator.clipboard.writeText(script)
+        .then(() => alert('Script copied!'))
+        .catch(() => alert('Failed to copy.'));
+    }
+  </script>
 </body>
 </html>
+
