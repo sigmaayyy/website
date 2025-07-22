@@ -1,174 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Syntax Exploits</title>
-  <link rel="icon" href="https://i.imgur.com/zVomS5u.png" /> <!-- Replace with your icon URL -->
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-    body {
-      background: #0e0e0e url('https://i.imgur.com/zVomS5u.png') no-repeat center center fixed;
-      background-size: cover;
-      backdrop-filter: blur(8px);
-      color: white;
-    }
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background-color: #121212;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-    .menu-toggle {
-      font-size: 2rem;
-      cursor: pointer;
-      color: gold;
-    }
-    .nav-links {
-      display: none;
-      flex-direction: column;
-      position: fixed;
-      top: 0;
-      right: 0;
-      height: 100%;
-      width: 250px;
-      background-color: #1a1a1a;
-      padding: 2rem;
-    }
-    .nav-links.active {
-      display: flex;
-    }
-    .nav-links a {
-      color: white;
-      margin-bottom: 1rem;
-      text-decoration: none;
-      font-size: 1.2rem;
-    }
-    .close-btn {
-      align-self: flex-end;
-      font-size: 2rem;
-      cursor: pointer;
-      color: gold;
-    }
-    main {
-      padding: 2rem;
-    }
-    .highlight {
-      color: gold;
-    }
-    .link-choice-container {
-      display: flex;
-      gap: 2rem;
-      margin-top: 1rem;
-    }
-    .link-choice img {
-      width: 100px;
-      height: 100px;
-      border-radius: 10px;
-    }
-    .link-choice button {
-      margin-top: 0.5rem;
-      padding: 0.5rem;
-      background: #333;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button.copy {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background-color: #3a3aff;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-  <nav>
-    <div class="logo">Syntax</div>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-    <div class="nav-links" id="navLinks">
-      <div class="close-btn" onclick="toggleMenu()">×</div>
-      <a href="#" onclick="loadPage('/home')">Home</a>
-      <a href="#" onclick="loadPage('/premium')">Premium</a>
-      <a href="#" onclick="loadPage('/script')">Script</a>
-      <a href="#" onclick="loadPage('/staff')">Staff</a>
-      <a href="#" onclick="loadPage('/credits')">Credits</a>
-    </div>
-  </nav>
-  <main id="pageContent">
-    <h1>Welcome to Syntax</h1>
-    <p>We used to be Ninja Scripts, now we're called Syntax.</p>
-  </main>
-
-  <script>
-    function toggleMenu() {
-      document.getElementById('navLinks').classList.toggle('active');
-    }
-
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        alert('Copied: ' + text);
-      });
-    }
-
-    function loadPage(path) {
-      const content = document.getElementById('pageContent');
-      switch(path) {
-        case '/home':
-          content.innerHTML = `<h1>Welcome to Syntax</h1><p>We used to be Ninja Scripts, now we're called Syntax.</p>`;
-          break;
-        case '/premium':
-          content.innerHTML = `
-            <h1>Get Premium</h1>
-            <div class="premium-box">
-              <p>Support us and unlock premium features.</p>
-              <button class="copy" onclick="copyToClipboard('ninjakid682')">Copy PayPal Username</button>
-            </div>
-          `;
-          break;
-        case '/script':
-          content.innerHTML = `
-            <h1>Script</h1>
-            <p>loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/8.5.lua"))()</p>
-          `;
-          break;
-        case '/staff':
-          content.innerHTML = `
-            <h1>Our Staff</h1>
-            <p class="highlight">-redefined- The guy who helped me develop the Ninja Scripts server.</p>
-            <p class="highlight">-Domi- He's active and invited people to the server. He's a good guy.</p>
-            <p class="highlight">-Xbamz- My long lost friend.</p>
-            <p class="highlight">-grace- Spotted a bug and is a tester for the script.</p>
-            <p class="highlight">-[PREMIUM] 0- He's a developer even though he never helped me with anything!</p>
-            <p class="highlight">-BX- Also a developer but never helped me with anything.</p>
-          `;
-          break;
-        case '/credits':
-          content.innerHTML = `
-            <h1>Credits</h1>
-            <p>Was made by Hunter [Ninja Scripts Owner]</p>
-            <button onclick="window.open('https://discord.gg/PfbeUhppbc', '_blank')">Join Discord</button>
-          `;
-          break;
-        default:
-          content.innerHTML = `<h1>404 - Page Not Found</h1>`;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Syntax Hub</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/5968/5968267.png" type="image/png">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
       }
-    }
-  </script>
-</body>
+
+      body {
+        background: url('https://wallpapercave.com/wp/wp5128415.jpg') no-repeat center center fixed;
+        background-size: cover;
+        backdrop-filter: blur(10px);
+        min-height: 100vh;
+        color: white;
+      }
+
+      header {
+        background-color: rgba(0, 0, 0, 0.8);
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      nav {
+        display: flex;
+        gap: 1rem;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        background: #1e1e1e;
+        border-radius: 5px;
+        transition: 0.3s;
+      }
+
+      nav a:hover {
+        background: #444;
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        background: gold;
+        padding: 5px;
+        border-radius: 5px;
+      }
+
+      .hamburger div {
+        width: 25px;
+        height: 3px;
+        background: #000;
+        margin: 3px 0;
+      }
+
+      .mobile-menu {
+        display: none;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.9);
+        position: absolute;
+        top: 70px;
+        right: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        z-index: 999;
+      }
+
+      .mobile-menu a {
+        margin: 5px 0;
+      }
+
+      main {
+        padding: 2rem;
+      }
+
+      .highlight {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 5px;
+      }
+
+      .copy-box {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 10px;
+        max-width: 400px;
+      }
+
+      button {
+        background: #007BFF;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #0056b3;
+      }
+
+      @media (max-width: 768px) {
+        nav {
+          display: none;
+        }
+
+        .hamburger {
+          display: flex;
+        }
+
+        .mobile-menu.show {
+          display: flex;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">Syntax Hub</div>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#premium">Premium</a>
+        <a href="#script">Script</a>
+        <a href="#staff">Staff</a>
+        <a href="#credits">Credits</a>
+      </nav>
+      <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="#home" onclick="toggleMenu()">Home</a>
+        <a href="#premium" onclick="toggleMenu()">Premium</a>
+        <a href="#script" onclick="toggleMenu()">Script</a>
+        <a href="#staff" onclick="toggleMenu()">Staff</a>
+        <a href="#credits" onclick="toggleMenu()">Credits</a>
+      </div>
+    </header>
+    <main>
+      <section id="home">
+        <h1>Welcome to Syntax</h1>
+        <p>We used to be Ninja Scripts, now we're called Syntax.</p>
+      </section>
+
+      <section id="premium">
+        <h1>Premium</h1>
+        <div class="copy-box">
+          <p>Get Premium</p>
+          <button onclick="copyToClipboard('ninjakid682')">Copy PayPal Username</button>
+        </div>
+      </section>
+
+      <section id="script">
+        <h1>Script</h1>
+        <pre><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmaayyy/badge-hub-auto/refs/heads/main/6.5.lua"))()</code></pre>
+      </section>
+
+      <section id="staff">
+        <h1>Our Staff</h1>
+        <p class="highlight">-redefined- The guy who helped me develop the Ninja Scripts server.</p>
+        <p class="highlight">-Domi- He's active and invited people to the server. He's a good guy.</p>
+        <p class="highlight">-Xbamz- My long lost friend.</p>
+        <p class="highlight">-grace- Spotted a bug and is a tester for the script.</p>
+        <p class="highlight">-[PREMIUM] 0- He's a developer even though he never helped me with anything!.</p>
+        <p class="highlight">-BX- Also a developer but never helped me with anything.</p>
+      </section>
+
+      <section id="credits">
+        <h1>Credits</h1>
+        <p>Was made by Hunter [Ninja Scripts Owner]</p>
+        <button onclick="window.open('https://discord.gg/PfbeUhppbc', '_blank')">Join Discord</button>
+      </section>
+    </main>
+
+    <script>
+      function toggleMenu() {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('show');
+      }
+
+      function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert("Copied to clipboard: " + text);
+        });
+      }
+    </script>
+  </body>
 </html>
